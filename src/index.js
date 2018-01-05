@@ -13,9 +13,12 @@ class HttpToS3 {
 
     // If a pre-configured S3 client is provided, use it
     if (s3) {
-      if (!(s3 instanceof S3)) {
-        throw new Error("Invalid S3 client provided");
-      }
+      // This `instanceof` check is returning false when s3 client is instantiated
+      // outside of this library. Underlying issue may be similar to https://github.com/knockout/knockout/issues/1307
+      // Removing for now.
+      // if (!(s3 instanceof S3)) {
+      //   throw new Error("Invalid S3 client provided");
+      // }
 
       this.S3Client = s3;
     } else {
